@@ -1,0 +1,44 @@
+.weatherInfo{
+    .Mainimage{
+        .earthImg{
+            height: 400px;
+            width: 100%;
+
+        }
+        &::after{
+            display: block; 
+            content: "";            
+             width: 100%;
+             height: 10px;
+             background-image: linear-gradient(to right, #c1c5e5 0%, #01ffed 100%),
+              linear-gradient(to right, #c1c5e5 0%, #01ffed 100%);
+                 }
+  }
+  .weatherDetails{
+    background-color: #272e38;
+    color: white;
+    .info{
+        margin: 30px 0px;
+        .country{
+            font-size: 55px;
+            color: #ffffff;
+            font-family: "Tahoma";
+        }
+        .tempreture{
+            font-size: 22px;
+            color: #73787e;
+            font-family: "Tahoma";
+        }
+        .description{
+            font-size: 20px;
+            color: #73787e;
+            font-family: "Tahoma";
+            margin-top: 20px;
+        }
+    }
+
+  }
+
+
+
+}
