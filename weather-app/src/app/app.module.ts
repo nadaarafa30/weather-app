@@ -5,16 +5,20 @@ import { AppComponent } from './app.component';
 import { RoutingModule } from 'src/app/routing/routing.module';
 import { HeaderComponent } from './Components/header/header.component';
 import { WheatherHomePageComponent } from './Components/wheather-home-page/wheather-home-page.component';
+import { HttpModule } from '@angular/http';
+import { MilitaryTimeConversionPipe } from './pipes/military-time-conversion.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    WheatherHomePageComponent
+    WheatherHomePageComponent,
+    MilitaryTimeConversionPipe
   ],
   imports: [
     BrowserModule,
-    RoutingModule
+    RoutingModule,
+    HttpModule
   ],
   providers: [],
   bootstrap: [AppComponent]

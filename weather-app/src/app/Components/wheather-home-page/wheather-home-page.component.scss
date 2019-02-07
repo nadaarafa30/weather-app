@@ -1,9 +1,9 @@
 .weatherInfo{
   .Mainimage{
-        .earthImg{
-            height: 400px;
+        .weatherImg{
+            max-height: 400px;
             width: 100%;
-
+            height: auto;
         }
         &::after{
             display: block; 
@@ -57,7 +57,7 @@
       flex-wrap: wrap;
       .weather{
          width: 25%;
-         height: 200px;
+         height: 225px;
          background-image: linear-gradient(to right, #c1c5e5 0%, #01ffed 100%),
          linear-gradient(to right, #c1c5e5 0%, #01ffed 100%);
          @media only screen and (max-width: 765px) {
@@ -78,7 +78,7 @@
         }
       .daydetails{
         width: 25%;
-        height: 200px;   
+        height: 225px;   
         display: block;  
         color: white;   
         cursor: pointer;
@@ -117,8 +117,8 @@
           }
         
           .daywrapper{
-              height: 192px;
-              text-align: center;
+            height: 217px;
+            text-align: center;
               padding: 30px;
               position: relative;
               @media only screen and (max-width: 520px) {
@@ -139,7 +139,7 @@
                 color: white;
                 font-family: "Tahoma";
                 font-size: 78px;
-                line-height: 68px;       
+                line-height: 90px;       
                 @media only screen and (max-width: 960px) {
                     font-size: 50px;
                 }    
