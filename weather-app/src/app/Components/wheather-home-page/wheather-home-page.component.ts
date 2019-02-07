@@ -13,7 +13,7 @@ export class WheatherHomePageComponent implements OnInit {
   mylongitude;
   Countryimage;
   stillLoading = true;
-
+  countryName='';
   constructor(private WeatherSer:WeatherService) {
     this.findme()    
   }
@@ -59,6 +59,24 @@ export class WheatherHomePageComponent implements OnInit {
       (err)=>{
         alert(err);
       });
+  }
+
+  search(value){
+    this.countryName=value.target.value;  
+    this.stillLoading = true;
+    console.log(this.countryName.length);
+    if(this.countryName.length < 1){
+      this.GetWeatherData(this.myCountry);
+      console.log('serch');
+    }
+    else{
+      this.GetWeatherData(value.target.value);
+      console.log('No serch');
+      
+    }
+
+    console.log(value.target.value);
+
   }
   
 
