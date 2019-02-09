@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit ,Output,EventEmitter} from '@angular/core';
 
 @Component({
   selector: 'app-header',
@@ -6,15 +6,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-  countryName= '';
+  @Output() triggerSearch = new EventEmitter();
+  
   constructor() { }
 
   ngOnInit() {
   }
 
   search(value){
-    this.countryName=value.target.value;  
-    console.log(value.target.value);
+    this.triggerSearch.emit(value);
   }
 
 }

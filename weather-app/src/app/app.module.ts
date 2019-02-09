@@ -7,13 +7,17 @@ import { HeaderComponent } from './Components/header/header.component';
 import { WheatherHomePageComponent } from './Components/wheather-home-page/wheather-home-page.component';
 import { HttpModule } from '@angular/http';
 import { MilitaryTimeConversionPipe } from './pipes/military-time-conversion.pipe';
+import { LoadingComponent } from './Components/loading/loading.component';
+import { ErrorSectionComponent } from './Components/error-section/error-section.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     WheatherHomePageComponent,
-    MilitaryTimeConversionPipe
+    MilitaryTimeConversionPipe,
+    LoadingComponent,
+    ErrorSectionComponent
   ],
   imports: [
     BrowserModule,

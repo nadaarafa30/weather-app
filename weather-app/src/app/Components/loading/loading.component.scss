@@ -1,0 +1,13 @@
+.loading{
+    height: calc(100vh);
+    position: fixed;
+    display: block;
+    width: 100%;
+    background-color: #000000b0;
+    img{
+        position: absolute;
+        left: 50%;
+        transform: translate(-50%, 0);
+        top: 15%;
+    }
+  }

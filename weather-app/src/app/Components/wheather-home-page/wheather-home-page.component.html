@@ -1,21 +1,4 @@
-<div class="container-fluid headerItem">
-    <div class="head">
-        <div class="row">
-            <div class="col-xs-12 col-md-8">
-                 <img class="earthImg" src="../../../assets/imgs/earth.png" >
-                 <ul class="navigation">
-                  <li>Weather App</li>  
-                  <li>Global Outlook</li>                  
-                 </ul>  
-            </div>
-            <div class="col-xs-12 col-md-4">
-               <input class="search" type="text" placeholder="search" (keyup)="search($event)"/>
-            </div>
-           </div>
-    </div>
-  </div>
-  
-  
+<app-header (triggerSearch)="search($event)"></app-header>  
 
 <div class="weatherInfo" *ngIf="weatherData?.data.request && !stillLoading">
   <div class="Mainimage">
@@ -45,7 +28,7 @@
       <img src={{weatherData?.data.current_condition[0].weatherIconUrl[0].value}}>
       <span>{{ weatherData?.data.current_condition[0].weatherDesc[0].value}}</span>
     </div>
-    <div class="daydetails" *ngFor="let dayItem of weatherData?.data.weather; let i = index" (click)="activeDetails(i);scroll('details')">
+    <div class="daydetails" *ngFor="let dayItem of weatherData?.data.weather; let i = index" (click)="activeDetails(i);scrollToDetails('details')">
       <div class="daywrapper">
         <img class="icon" src="../../../assets/imgs/group.png">
         <span class="daydate">{{ dayItem.date | date : 'mediumDate'}}</span>
@@ -81,14 +64,6 @@
   </div>
 </div>
 
-<div *ngIf="!weatherData?.data.request && stillLoading" class="loading">
-  <div>
-    <img src="../../../assets/imgs/loading.gif">
-  </div>
-</div>
+<app-loading *ngIf="stillLoading"></app-loading>
 
-<div class="container showerror" *ngIf="errorOccured">
-    <div class="alert alert-danger" role="alert">
-     {{errorMessage}}
-    </div>
-</div>
+<app-error-section *ngIf="errorOccured" [Message]="errorMessage"></app-error-section>
