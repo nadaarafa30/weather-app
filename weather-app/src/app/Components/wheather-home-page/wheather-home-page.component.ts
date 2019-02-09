@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { WeatherService } from 'src/app/services/weather.service';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-wheather-home-page',
@@ -8,12 +9,15 @@ import { WeatherService } from 'src/app/services/weather.service';
 })
 export class WheatherHomePageComponent implements OnInit {
   myCountry='';
-  weatherData;
-  mylatitude;
-  mylongitude;
-  Countryimage;
+  Issearch=false;
+  activeDay=0;
+  changeToggle=false
+  weatherData;mylatitude;mylongitude;Countryimage;
   stillLoading = true;
   countryName='';
+  errorOccured=false;
+  errorMessage="";
+  searchTerm$ = new Subject<string>();
   constructor(private WeatherSer:WeatherService) {
     this.findme()    
   }
@@ -23,7 +27,6 @@ export class WheatherHomePageComponent implements OnInit {
   }
 
   // ------------- this function to get the Country Name from latitude , Longitude ------------
-
   findme(){
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
@@ -32,7 +35,6 @@ export class WheatherHomePageComponent implements OnInit {
           this.mylatitude=position.coords.latitude
           this.myCountry= data.json().countryName
           this.GetWeatherData(this.myCountry);
-          console.log(this.myCountry);
         },
         (err)=>{
           alert(err);
@@ -46,38 +48,62 @@ export class WheatherHomePageComponent implements OnInit {
   GetWeatherData(country){
       this.WeatherSer.GetWeatherDetils(country).subscribe(data =>{
         this.weatherData= data.json();
-        this.WeatherSer.GetCountryImage(this.weatherData.data.request[0].query).subscribe(data=>{
-          this.Countryimage = data.json().results[0].urls.raw;
+        this.errorOccured=false;        
+        if(!data.json().data['error']){
+          this.errorOccured=false;          
+          this.WeatherSer.GetCountryImage(this.weatherData.data.request[0].query).subscribe(data=>{
+            this.Countryimage = data.json().results[0].urls.raw;
+            this.stillLoading=false;
+            console.log(this.weatherData.data);              
+          },
+          (err)=>{
+            this.Countryimage = "../../../assets/imgs/weatherimage.png"
+          });
+        }
+        else{
+          this.errorOccured=true;
+          this.errorMessage="Please search with Valid Name";
           this.stillLoading=false;
-        },
-        (err)=>{
-          alert(err);
-        });
-
-        console.log(this.weatherData.data);
+          
+        }
       },
       (err)=>{
-        alert(err);
+        this.errorOccured=true;
+        this.errorMessage=err; 
+        this.stillLoading=false;
+        
+      
       });
   }
 
   search(value){
+    this.Issearch=true;
     this.countryName=value.target.value;  
     this.stillLoading = true;
-    console.log(this.countryName.length);
+    this.errorOccured=false;
     if(this.countryName.length < 1){
       this.GetWeatherData(this.myCountry);
-      console.log('serch');
+      this.Issearch=false;
+      
     }
     else{
-      this.GetWeatherData(value.target.value);
-      console.log('No serch');
-      
+      this.GetWeatherData(value.target.value);      
     }
 
     console.log(value.target.value);
 
   }
+
+  activeDetails(index){
+    this.activeDay=index;
+    this.changeToggle= !this.changeToggle
+  }
+
+  scroll(id) {
+    let el = document.getElementById(id);
+    el.scrollIntoView({behavior: 'smooth'});
+  }
+
   
 
 }

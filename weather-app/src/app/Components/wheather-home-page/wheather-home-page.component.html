@@ -27,7 +27,7 @@
         <div class="row">
           <div class="col-xs-12">
             <h2 class="country">{{weatherData?.data.request[0].query}}</h2>
-            <h3 class="tempreture" *ngIf="mylongitude && mylongitude">{{mylatitude}}°N, {{mylongitude}}°E</h3>
+            <h3 class="tempreture" *ngIf="mylongitude && mylongitude && !Issearch">{{mylatitude}}°N, {{mylongitude}}°E</h3>
             <p class="description">
               Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy
               text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen
@@ -45,28 +45,28 @@
       <img src={{weatherData?.data.current_condition[0].weatherIconUrl[0].value}}>
       <span>{{ weatherData?.data.current_condition[0].weatherDesc[0].value}}</span>
     </div>
-    <div class="daydetails" *ngFor="let dayItem of weatherData?.data.weather; let i = index">
+    <div class="daydetails" *ngFor="let dayItem of weatherData?.data.weather; let i = index" (click)="activeDetails(i);scroll('details')">
       <div class="daywrapper">
         <img class="icon" src="../../../assets/imgs/group.png">
         <span class="daydate">{{ dayItem.date | date : 'mediumDate'}}</span>
-        <span class="time"> {{ dayItem.hourly[3].time |militaryTimeConversion }} </span>
-        <span class="degree"> {{dayItem.hourly[3].tempC}}°C</span>
-        <span class="ingeneral">{{dayItem.hourly[3].weatherDesc[0].value}}</span>
+        <span class="time"> {{ dayItem.hourly[10].time |militaryTimeConversion }} </span>
+        <span class="degree"> {{dayItem.hourly[10].tempC}}°C</span>
+        <span class="ingeneral">{{dayItem.hourly[10].weatherDesc[0].value}}</span>
       </div>
     </div>
   </div>
-  <div class="dayDetailitem">
+  <div class="dayDetailitem" [ngClass]="{'change': changeToggle}" id="details">
     <div class="container-fluid">
       <div class="dayinfo container-fluid">
         <div class="row">
           <div class="col-xs-12 col-md-6">
             <div class="data">
-              <h3 class="d-date">Sun Dec 08</h3>
+              <h3 class="d-date"> {{weatherData?.data.weather[activeDay].date | date : 'mediumDate'}}</h3>
               <h4 class="d-general">Humidity Bar</h4>
-              <span class="d-sunrise">Sunrise: 6:48 AM</span>
-              <span class="d-rain">Chance Of Rain: 90%</span>
-              <span class="d-sunset">Sunset: 5:01 PM</span>
-              <span class="d-feels">Feels Like: 3OC</span>
+              <span class="d-sunrise">Sunrise: {{weatherData?.data.weather[activeDay].astronomy[0].sunrise}}</span>
+              <span class="d-rain">Chance Of Rain: {{weatherData?.data.weather[activeDay].hourly[0].chanceofrain}} - {{weatherData?.data.weather[activeDay].hourly[0].chanceofrain}}  %</span>
+              <span class="d-sunset">Sunset: {{weatherData?.data.weather[activeDay].astronomy[0].sunset}}</span>
+              <span class="d-feels">Feels Like: {{weatherData?.data.weather[activeDay].hourly[0].FeelsLikeC}}°C</span>
             </div>
           </div>
           <div class="col-xs-12 col-md-6">
@@ -81,6 +81,14 @@
   </div>
 </div>
 
-<div *ngIf="!weatherData?.data.request || stillLoading">
-  Loadding .............
+<div *ngIf="!weatherData?.data.request && stillLoading" class="loading">
+  <div>
+    <img src="../../../assets/imgs/loading.gif">
+  </div>
+</div>
+
+<div class="container showerror" *ngIf="errorOccured">
+    <div class="alert alert-danger" role="alert">
+     {{errorMessage}}
+    </div>
 </div>
