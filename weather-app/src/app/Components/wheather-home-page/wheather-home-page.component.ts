@@ -18,7 +18,7 @@ export class WheatherHomePageComponent implements OnDestroy {
   Issearch=false;
   activeDay=0;
   changeToggle=false
-  weatherData;mylatitude;mylongitude;Countryimage;
+  weatherData;mylatitude;mylongitude;Countryimage;chartData;
   stillLoading = true;
   countryName='';
   errorOccured=false;
@@ -34,9 +34,10 @@ export class WheatherHomePageComponent implements OnDestroy {
     this.findme();
     this.sub= this.WeatherSer.GetWeatherDetils(this.searchTerm$).subscribe(data =>{
       this.weatherData= data.json();
-      this.errorOccured=false;        
+      this.errorOccured=false;      
       if(!data.json().data['error']){
         this.errorOccured=false;          
+        this.chartData= this.weatherData.data.weather[this.activeDay]['hourly'].slice(0, 6);          
         this.WeatherSer.GetCountryImage(this.weatherData.data.request[0].query).subscribe(data=>{
           this.Countryimage = data.json().results[0].urls.raw;
           this.stillLoading=false;
@@ -97,6 +98,7 @@ export class WheatherHomePageComponent implements OnDestroy {
   activeDetails(index){
     this.activeDay=index;
     this.changeToggle= !this.changeToggle
+    this.chartData=this.weatherData.data.weather[this.activeDay]['hourly'].slice(0, 6);
   }
 
   scrollToDetails(id) {

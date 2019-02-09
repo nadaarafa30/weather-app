@@ -9,6 +9,7 @@ import { HttpModule } from '@angular/http';
 import { MilitaryTimeConversionPipe } from './pipes/military-time-conversion.pipe';
 import { LoadingComponent } from './Components/loading/loading.component';
 import { ErrorSectionComponent } from './Components/error-section/error-section.component';
+import { ChartComponent } from './Components/chart/chart.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { ErrorSectionComponent } from './Components/error-section/error-section.
     WheatherHomePageComponent,
     MilitaryTimeConversionPipe,
     LoadingComponent,
-    ErrorSectionComponent
+    ErrorSectionComponent,
+    ChartComponent
   ],
   imports: [
     BrowserModule,

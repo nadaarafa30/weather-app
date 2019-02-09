@@ -1,0 +1,21 @@
+svg{
+    width: 100%;
+    display: block;
+}
+.bar {
+    fill: #313842;
+}
+
+g line, g path {
+   display: none;
+}
+g .tick{
+    font-size: 20px;
+    color: #92989e;
+}
+.charttitle{
+    font-size: 30px;
+    color: #92989e;
+}
+
+
