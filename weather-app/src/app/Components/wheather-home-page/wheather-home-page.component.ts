@@ -1,11 +1,17 @@
-import { Component,OnDestroy} from '@angular/core';
+import { Component,OnDestroy,ElementRef,ViewEncapsulation} from '@angular/core';
 import { WeatherService } from 'src/app/services/weather.service';
 import { Subject,Subscription } from 'rxjs';
+import * as d3 from 'd3';
+import * as d3Scale from 'd3-scale';
+import * as d3Shape from 'd3-shape';
+import * as d3Array from 'd3-array';
+import * as d3Axis from 'd3-axis'
 
 @Component({
   selector: 'app-wheather-home-page',
   templateUrl: './wheather-home-page.component.html',
-  styleUrls: ['./wheather-home-page.component.scss']
+  styleUrls: ['./wheather-home-page.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class WheatherHomePageComponent implements OnDestroy {
   myCountry='';
@@ -21,9 +27,11 @@ export class WheatherHomePageComponent implements OnDestroy {
   searchTerm$ = new Subject<string>();
   sub: Subscription;
   
+  
+
   constructor(private WeatherSer:WeatherService) {
-    this.findme()    
     
+    this.findme();
     this.sub= this.WeatherSer.GetWeatherDetils(this.searchTerm$).subscribe(data =>{
       this.weatherData= data.json();
       this.errorOccured=false;        
@@ -99,5 +107,5 @@ export class WheatherHomePageComponent implements OnDestroy {
   ngOnDestroy() {
     this.sub.unsubscribe();
   }
-
+    
 }

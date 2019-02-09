@@ -47,14 +47,13 @@
               <h3 class="d-date"> {{weatherData?.data.weather[activeDay].date | date : 'mediumDate'}}</h3>
               <h4 class="d-general">Humidity Bar</h4>
               <span class="d-sunrise">Sunrise: {{weatherData?.data.weather[activeDay].astronomy[0].sunrise}}</span>
-              <span class="d-rain">Chance Of Rain: {{weatherData?.data.weather[activeDay].hourly[0].chanceofrain}} - {{weatherData?.data.weather[activeDay].hourly[0].chanceofrain}}  %</span>
+              <span class="d-rain">Chance Of Rain: {{weatherData?.data.weather[activeDay].hourly[10].chanceofrain}}  %</span>
               <span class="d-sunset">Sunset: {{weatherData?.data.weather[activeDay].astronomy[0].sunset}}</span>
               <span class="d-feels">Feels Like: {{weatherData?.data.weather[activeDay].hourly[0].FeelsLikeC}}°C</span>
             </div>
           </div>
           <div class="col-xs-12 col-md-6">
             <div class="chart">
-
             </div>
           </div>
 
